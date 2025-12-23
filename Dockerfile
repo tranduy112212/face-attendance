@@ -1,11 +1,13 @@
 FROM python:3.10-slim
 
-# Cài lib hệ thống cho dlib + opencv
 RUN apt-get update && apt-get install -y \
     build-essential \
-    cmake \
     libgl1 \
+    wget \
     && rm -rf /var/lib/apt/lists/*
+
+# Cài CMake phiên bản CŨ (ổn với dlib)
+RUN pip install cmake==3.25.2
 
 WORKDIR /app
 
