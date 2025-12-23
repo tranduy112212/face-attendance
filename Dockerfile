@@ -1,18 +1,22 @@
 FROM python:3.10-slim
 
+# Cài full system deps cho dlib
 RUN apt-get update && apt-get install -y \
     build-essential \
+    cmake \
+    libopenblas-dev \
+    liblapack-dev \
+    libx11-dev \
     libgl1 \
-    wget \
+    libboost-all-dev \
     && rm -rf /var/lib/apt/lists/*
 
-# Cài CMake phiên bản CŨ (ổn với dlib)
-RUN pip install cmake==3.25.2
+# Pin cmake version an toàn cho dlib
+RUN pip install --upgrade pip && pip install cmake==3.25.2
 
 WORKDIR /app
 
 COPY requirements.txt .
-RUN pip install --upgrade pip
 RUN pip install -r requirements.txt
 
 COPY . .
