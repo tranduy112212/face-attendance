@@ -1,0 +1,8 @@
+services:
+  - type: web
+    name: face-attendance
+    env: python
+    plan: free
+    pythonVersion: 3.10.13
+    buildCommand: pip install -r requirements.txt
+    startCommand: python app.py
