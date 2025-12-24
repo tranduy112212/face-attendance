@@ -1,8 +1,13 @@
 services:
   - type: web
     name: face-attendance
-    env: python
+    runtime: python
+    region: singapore
     plan: free
-    pythonVersion: 3.10.13
-    buildCommand: pip install -r requirements.txt
-    startCommand: python app.py
+    buildCommand: pip install --upgrade pip setuptools wheel && pip install -r requirements.txt
+    startCommand: gunicorn app:app --timeout 120 --workers 1 --bind 0.0.0.0:$PORT
+    envVars:
+      - key: ENVIRONMENT
+        value: production
+      - key: PYTHON_VERSION
+        value: 3.10.13
