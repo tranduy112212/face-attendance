@@ -1,20 +1,11 @@
 flask==3.0.0
 opencv-python-headless==4.8.1.78
-<<<<<<< HEAD
-numpy==1.24.3
-dlib==19.24.2
-=======
 numpy==1.26.4
-dlib-binary==19.24.1
->>>>>>> 6f9d116d36fde58759c12e56bc4880d9c9d5e5ad
+dlib==19.24.2
 google-auth==2.23.4
 google-auth-oauthlib==1.1.0
 google-auth-httplib2==0.1.1
 google-api-python-client==2.108.0
 gunicorn==21.2.0
 Pillow==10.1.0
-<<<<<<< HEAD
 gdown==4.7.1
-=======
-gdown==5.2.0
->>>>>>> 6f9d116d36fde58759c12e56bc4880d9c9d5e5ad
