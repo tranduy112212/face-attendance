@@ -1,5 +1,12 @@
-.git
-.venv
-__pycache__
+__pycache__/
 *.pyc
+.git/
+.gitignore
 .env
+.venv/
+venv/
+*.dat
+attendance_images/
+service_account.json
+README.md
+.DS_Store
