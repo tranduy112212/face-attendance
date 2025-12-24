@@ -5,6 +5,7 @@ import dlib
 from google.oauth2 import service_account
 from googleapiclient.discovery import build
 from googleapiclient.http import MediaInMemoryUpload
+import gdown
 
 app = Flask(__name__)
 
@@ -48,6 +49,25 @@ sheet_lock = threading.Lock()
 
 print("✅ Google Sheets & Drive kết nối thành công!")
 
+
+def download_models():
+    """Download models từ Google Drive lần đầu"""
+    files = {
+        "shape_predictor": ("1Z5oEJ6F6ooIt26i5n6Ft8Oe1h9xp_FXO", "models/shape_predictor_68_face_landmarks.dat"),
+        "face_recognition": ("1cZ456fwQGSy-WuGTv8e5XHI1FI-jmv3B", "models/dlib_face_recognition_resnet_model_v1.dat"),
+        "encodings": ("1-UgJgG1Gvb6ufO1n1N3FlzOK5FU-CpRk", "known_encodings.npy"),
+        "names": ("1DPvsq7VAiLwKPPO9EBGIDKsDI-5IzOAg", "known_names.pkl")
+    }
+
+    for name, (file_id, path) in files.items():
+        if not os.path.exists(path):
+            print(f"⬇️ Downloading {name}...")
+            os.makedirs(os.path.dirname(path), exist_ok=True)
+            gdown.download(id=file_id, output=path, quiet=False)
+
+
+# Gọi trước khi load models
+download_models()
 # ================= LOAD MODELS =================
 try:
     detector = dlib.get_frontal_face_detector()
