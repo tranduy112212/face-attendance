@@ -127,6 +127,7 @@
 </head>
 <body>
     <h1>📸 Chấm công khuôn mặt</h1>
+<<<<<<< HEAD
     
     <video id="camera" autoplay playsinline></video>
     
@@ -138,25 +139,51 @@
     
     <div id="list"></div>
     
+=======
+
+    <video id="camera" autoplay playsinline></video>
+
+    <div class="loading" id="loading">
+        <div class="spinner"></div>
+    </div>
+
+    <div id="status"></div>
+
+    <div id="list"></div>
+
+>>>>>>> 6f9d116d36fde58759c12e56bc4880d9c9d5e5ad
     <div class="hint">
         🔄 Tự động nhận diện mỗi 2.5 giây<br>
         📸 Ảnh lưu trên Google Drive<br>
         ⏳ Chấm công tối đa 30 phút/lần<br>
         🗑️ Nhấn giữ card để xóa
     </div>
+<<<<<<< HEAD
     
     <canvas id="canvas"></canvas>
     
+=======
+
+    <canvas id="canvas"></canvas>
+
+>>>>>>> 6f9d116d36fde58759c12e56bc4880d9c9d5e5ad
     <script>
         const video = document.getElementById('camera');
         const canvas = document.getElementById('canvas');
         const list = document.getElementById('list');
         const statusDiv = document.getElementById('status');
         const loading = document.getElementById('loading');
+<<<<<<< HEAD
         
         const THRESHOLD = 0.5;
         const SCAN_INTERVAL = 2500; // 2.5 giây
         
+=======
+
+        const THRESHOLD = 0.5;
+        const SCAN_INTERVAL = 2500; // 2.5 giây
+
+>>>>>>> 6f9d116d36fde58759c12e56bc4880d9c9d5e5ad
         let isProcessing = false;
         let scanTimer;
 
@@ -170,6 +197,7 @@
                         height: { ideal: 480 }
                     }
                 });
+<<<<<<< HEAD
                 
                 video.srcObject = stream;
                 showStatus('✅ Camera sẵn sàng', 'info');
@@ -177,6 +205,15 @@
                 // Bắt đầu scan tự động
                 startAutoScan();
                 
+=======
+
+                video.srcObject = stream;
+                showStatus('✅ Camera sẵn sàng', 'info');
+
+                // Bắt đầu scan tự động
+                startAutoScan();
+
+>>>>>>> 6f9d116d36fde58759c12e56bc4880d9c9d5e5ad
             } catch (err) {
                 showStatus('❌ Không thể truy cập camera!', 'error');
                 console.error(err);
@@ -195,7 +232,11 @@
         // Nhận diện khuôn mặt
         async function recognizeFace() {
             if (isProcessing) return;
+<<<<<<< HEAD
             
+=======
+
+>>>>>>> 6f9d116d36fde58759c12e56bc4880d9c9d5e5ad
             isProcessing = true;
             loading.classList.add('show');
 
@@ -204,7 +245,11 @@
                 canvas.width = video.videoWidth;
                 canvas.height = video.videoHeight;
                 canvas.getContext('2d').drawImage(video, 0, 0);
+<<<<<<< HEAD
                 
+=======
+
+>>>>>>> 6f9d116d36fde58759c12e56bc4880d9c9d5e5ad
                 const imageData = canvas.toDataURL('image/jpeg', 0.8);
 
                 const response = await fetch('/recognize', {
@@ -221,7 +266,11 @@
                 if (result.success) {
                     showStatus(`✅ ${result.name} - ${result.time}`, 'success');
                     addCard(result);
+<<<<<<< HEAD
                     
+=======
+
+>>>>>>> 6f9d116d36fde58759c12e56bc4880d9c9d5e5ad
                     // Rung điện thoại
                     if (navigator.vibrate) {
                         navigator.vibrate(200);
@@ -231,7 +280,11 @@
                 } else {
                     // Không hiện gì khi không có mặt
                 }
+<<<<<<< HEAD
                 
+=======
+
+>>>>>>> 6f9d116d36fde58759c12e56bc4880d9c9d5e5ad
             } catch (err) {
                 console.error('Lỗi:', err);
             }
@@ -245,7 +298,11 @@
             statusDiv.className = `status ${type}`;
             statusDiv.textContent = message;
             statusDiv.style.display = 'block';
+<<<<<<< HEAD
             
+=======
+
+>>>>>>> 6f9d116d36fde58759c12e56bc4880d9c9d5e5ad
             setTimeout(() => {
                 statusDiv.style.display = 'none';
             }, 3000);
@@ -254,10 +311,17 @@
         // Thêm card chấm công
         function addCard(data) {
             const id = data.name + data.time;
+<<<<<<< HEAD
             
             // Không thêm nếu đã tồn tại
             if (document.getElementById(id)) return;
             
+=======
+
+            // Không thêm nếu đã tồn tại
+            if (document.getElementById(id)) return;
+
+>>>>>>> 6f9d116d36fde58759c12e56bc4880d9c9d5e5ad
             const card = document.createElement('div');
             card.className = 'card';
             card.id = id;
@@ -265,6 +329,7 @@
                 <strong>${data.name}</strong><br>
                 <small>${data.time}</small>
             `;
+<<<<<<< HEAD
             
             // Nhấn giữ để xóa
             let pressTimer;
@@ -285,19 +350,49 @@
                 clearTimeout(pressTimer);
             });
             
+=======
+
+            // Nhấn giữ để xóa
+            let pressTimer;
+
+            card.addEventListener('mousedown', () => {
+                pressTimer = setTimeout(() => deleteCard(data), 800);
+            });
+
+            card.addEventListener('mouseup', () => {
+                clearTimeout(pressTimer);
+            });
+
+            card.addEventListener('touchstart', () => {
+                pressTimer = setTimeout(() => deleteCard(data), 800);
+            });
+
+            card.addEventListener('touchend', () => {
+                clearTimeout(pressTimer);
+            });
+
+>>>>>>> 6f9d116d36fde58759c12e56bc4880d9c9d5e5ad
             // Chuột phải
             card.addEventListener('contextmenu', (e) => {
                 e.preventDefault();
                 deleteCard(data);
             });
+<<<<<<< HEAD
             
+=======
+
+>>>>>>> 6f9d116d36fde58759c12e56bc4880d9c9d5e5ad
             list.prepend(card);
         }
 
         // Xóa card
         async function deleteCard(data) {
             if (!confirm(`Xóa chấm công ${data.name} - ${data.time}?`)) return;
+<<<<<<< HEAD
             
+=======
+
+>>>>>>> 6f9d116d36fde58759c12e56bc4880d9c9d5e5ad
             try {
                 await fetch('/delete', {
                     method: 'POST',
@@ -307,12 +402,21 @@
                         time: data.time
                     })
                 });
+<<<<<<< HEAD
                 
                 const card = document.getElementById(data.name + data.time);
                 if (card) card.remove();
                 
                 showStatus('🗑️ Đã xóa', 'info');
                 
+=======
+
+                const card = document.getElementById(data.name + data.time);
+                if (card) card.remove();
+
+                showStatus('🗑️ Đã xóa', 'info');
+
+>>>>>>> 6f9d116d36fde58759c12e56bc4880d9c9d5e5ad
             } catch (err) {
                 showStatus('❌ Lỗi xóa!', 'error');
             }
@@ -323,7 +427,11 @@
             try {
                 const response = await fetch('/status');
                 const data = await response.json();
+<<<<<<< HEAD
                 
+=======
+
+>>>>>>> 6f9d116d36fde58759c12e56bc4880d9c9d5e5ad
                 if (!data.model_ready) {
                     showStatus('❌ Model chưa sẵn sàng!', 'error');
                     clearInterval(scanTimer);
